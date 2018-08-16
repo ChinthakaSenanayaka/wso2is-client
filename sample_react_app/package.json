@@ -9,12 +9,12 @@
   "author": "Chinthaka Senanayaka",
   "license": "ISC",
   "dependencies": {
+    "@openid/appauth": "file:///home/chinthaka/projects/appauth-lib-dev/AppAuth-JS",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
     "webpack": "^4.14.0",
-    "webpack-dev-server": "^3.1.4",
-    "wso2is-client": "file:///home/chinthaka/projects/appauth-lib-dev/wso2is-client"
+    "webpack-dev-server": "^3.1.4"
   },
   "devDependencies": {
     "eslint": "^5.1.0",
