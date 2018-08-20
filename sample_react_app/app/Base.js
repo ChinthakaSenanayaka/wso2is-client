@@ -16,8 +16,8 @@
  * under the License.
  */
 
- import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { App } from '@openid/appauth';
 
 import Home from './Home';
@@ -25,8 +25,8 @@ import Profile from './Profile';
 
 class Base extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         var appConfigs = {
             'authorizeUrl': 'https://localhost:9443/oauth2/authorize', // change the https://localhost:9443 to your WSO2-IAM installation domain name in all the places of appConfigs JSON if necessary
@@ -34,7 +34,7 @@ class Base extends Component {
             'revokeUrl': 'https://localhost:9443/oauth2/revoke',
             'logoutUrl': 'https://localhost:9443/oidc/logout',
             'userInfoUrl': 'https://localhost:9443/oauth2/userinfo',
-            'flowType': "IMPLICIT", // Possible values are IMPLICIT and PKCE, default is IMPLICIT
+            'flowType': "PKCE", // Possible values are IMPLICIT and PKCE, default is IMPLICIT
             'userStore': "LOCAL_STORAGE", // Possible values are LOCAL_STORAGE and SESSION_STORAGE, default is LOCAL_STORAGE and SESSION_STORAGE is not not supported yet
             'clientId': '0Ob7gGlPWWoCMx4qrGNSWjRgnMwa', // Get this value from WSO2-IAM Server Service Provider (SP) definition
             'clientSecret': '4jjZU5nke4iovlq5seaSPVxnqBMa', // Get this value from WSO2-IAM Server Service Provider (SP) definition
@@ -43,29 +43,23 @@ class Base extends Component {
             'postLogoutRedirectUri': 'http://localhost:7777/' // Specify the post logout redirect URL to land back after logout redirect to WSO2-IAM Server logout page
           };
       
-          this.application = new App(appConfigs);
-          this.application.init();
+        this.application = new App(appConfigs);
+    }
+
+    componentDidMount() {
+        this.application.init();
     }
 
     // To demonstrate SPA, 2 links with 2 pages should be added, thus in profile page, there should be a validation to check whether
     // the user is logged in to show the content of the profile page
    render() {
       return (
-         <Router>
-            <div>
-               <h2>WSO2-IAM OIDC App</h2>
-               <ul>
-                  <li><Link to={'/'}>Home</Link></li>
-                  <li><Link to={'/Profile'}>Profile</Link></li>
-               </ul>
-               <hr />
-
-               <Switch>
-                  <Route exact path='/' component={(props) => <Home application={this.application} {...props}/>} />
-                  <Route exact path='/Profile' component={(props) => <Profile application={this.application} {...props}/>} />
-               </Switch>
-            </div>
-         </Router>
+         <BrowserRouter>
+            <Switch>
+                <Route exact path='/' component={(props) => <Profile application={this.application} {...props}/>} />
+                <Route exact path='/Profile' component={(props) => <Home application={this.application} {...props}/>} />
+            </Switch>
+         </BrowserRouter>
       );
    }
 }

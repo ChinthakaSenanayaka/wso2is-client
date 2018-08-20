@@ -33,7 +33,7 @@ class Home extends Component {
   componentDidMount() {
 
     // Redirect completion callback method execution for authorization completion callback and end session (logout) completion callabck.
-    this.application.checkForAuthorizationResponse();
+    //this.application.checkForAuthorizationResponse();
     
   }
 
@@ -45,10 +45,36 @@ class Home extends Component {
 
    render() {
       return (
-         <div>
-            <h2>Home</h2>
-            <button onClick={this.loginClick}>Login</button>
-         </div>
+        <div class="login-dispatch">
+          <section id="login">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                  <div class="form-wrap-header">
+                    <img src="resources/img/logo.png" class="center-block pickup-logo-login" alt="pickup-logo" />
+                    <span class="app-title center-block">WSO2-IAM OIDC SPA React</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                  <div class="form-wrap">
+                    <button class="btn btn-custom btn-lg btn-block custom-primary add-margin-top-4x" onClick={this.loginClick}>Login</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <footer id="footer" class="login-footer login-dispatch">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="text-muted">Copyright &copy;  <a href="http://wso2.com/" target="_blank" class="wso2-logo-link"><img src="resources/img/wso2-light.svg" class="wso2-logo" alt="wso2-logo" /></a> &nbsp;2018</span>
+                </div>
+              </div>
+            </div>
+          </footer>  
+        </div>
       );
    }
 }
